@@ -1,57 +1,36 @@
-#include<stdio.h>
-#include<stdlib.h>
-int top=-1;
-int *stk;
-int n,k;
-void push(int ele)
-{
- 
- stk[++top]=ele;
-}
-int pop()
-{
- int x;
- x=stk[top--];
- return x;
-}
-int main()
-{
-int i,len,count,max,flag=0,l;
-int arr[100];
-scanf("%d %d",&n,&k);
-int check=k;
-stk=(int*)malloc(n*sizeof(int));
-top=n-1;
-for(i=n-1;i>=0;i--)
-{
-  scanf("%d",&stk[i]);
-}
-count=0;
-while(k!=1)
-{
-   arr[count++]=pop();
-   k--;
-}
-max=stk[top];
-for(i=0;i<count;i++)
-{
- if(max<arr[i])
-{
-    flag=1;
-  max=arr[i];
-}
-}
-if(flag==1)
-{
-    push(max);
-}
-else
-{
-    l=pop();
-}
- 
- 
-printf("%d",stk[top]);
- 
-return 0;
-}
+ #include <stdio.h>
+    #include <stdlib.h>
+    #define size 100000
+    int stack[size],num[size],top=-1;
+    void push(int x)
+    {
+        stack[++top]=x;
+        return;
+    }
+    void pop()
+    {
+        top--;
+    }
+    int main()
+    {
+        int i,j,k,p,l,t,n;
+        scanf(" %d",&n);
+        for(i=0;i<n;i++){
+            scanf(" %d",&num[i]);
+        }
+        for(i=0,j=1;i<n;i++){
+            if(num[i]>j)push(num[i]);
+            else if(num[i]==j){
+                j++;
+                while(top!=-1 && stack[top]==j){
+                    pop();
+                    j++;
+                }
+            }
+        }
+        if(j==n+1)
+            printf("Happy\n");
+        else
+            printf("Sad\n");
+        return 0;
+    }
